@@ -1076,7 +1076,7 @@
     "message": "Pequena atualização visual dos botões e diálogos",
     "description": "Description of an enhancement or fix in the new version of Clippings"
   },
-  "whatsNew-Fx": {
+  "whatsNew_Fx": {
     "message": "Adicionada a capacidade de importar dados de Texto Snippets (extensão do Chrome)",
     "description": "Description of a Firefox-only enhancement or fix in the new version of Clippings"
   },
