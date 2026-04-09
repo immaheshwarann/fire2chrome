@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient3230" x1=".32577" x2="17.307" y1="1004.4" y2="1022.6" gradientTransform="matrix(.97696 0 0 .97042 .064406 62.014)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#eef3f6" offset="0"/>
+   <stop stop-color="#abc3d2" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3232" x1=".32577" x2="12.67" y1="1004.4" y2="1028.3" gradientTransform="matrix(.97696 0 0 .97042 .064406 62.014)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#6c8ad0" offset="0"/>
+   <stop stop-color="#203567" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(0 -1036.4)">
+  <path d="m11.516 1036.9-0.03125 3.0534 2.9106 0.031m-12.895-3.0755v14.385c0.83355-2.1838 4.4143-3.4182 6.542-2.2885 1.5838 0.8069 1.0293 1.205 3.2219 2.4218 1.4238 0.6724 2.5253 0.4444 3.2345 0.4444l0.0529-12.156-2.7731-2.7755z" fill="url(#linearGradient3230)" stroke="url(#linearGradient3232)"/>
+  <g fill="none" stroke="#6080cc">
+   <path d="m4 1045.9h8"/>
+   <path d="m4 1039.9h5.0312"/>
+   <path d="m4 1043.9h8"/>
+   <path d="m4 1041.9h8"/>
+  </g>
+ </g>
+</svg>

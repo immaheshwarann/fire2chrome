@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12" height="12" enable-background="new" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient3808" x1="1.9812" x2="8.5188" y1="1.9812" y2="8.5188" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#6853ad" offset="0"/>
+   <stop stop-color="#4f3d83" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(-10 -186.36)">
+  <circle transform="matrix(1.2632 0 0 1.2632 9.3684 185.73)" cx="5.25" cy="5.25" r="4.75" fill="url(#linearGradient3808)"/>
+  <g fill="none" stroke="#fff">
+   <path d="m16.013 191.31-0.01294 4.8377" stroke-width="2.5"/>
+   <path d="m13.996 191.83 3.2577 0.0313" stroke-width="1.057px"/>
+   <path d="m13.5 195.86h5.0089"/>
+  </g>
+  <ellipse cx="15.85" cy="189.08" rx=".9" ry=".74096" fill="#fff" stroke="#fff" stroke-dashoffset="9.69" stroke-linecap="square"/>
+ </g>
+</svg>
