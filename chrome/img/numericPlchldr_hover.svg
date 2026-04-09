@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb">
+ <g transform="translate(-10 -182.36)" fill="none" stroke-width="1px">
+  <path d="m23 185.86h2.5v9h-2.5" stroke="#5858ff"/>
+  <path d="m22 185.86h-2.5v9h2.5" stroke="#5858ff"/>
+  <g stroke="#2020fa">
+   <path d="m16.5 185.36-2 10"/>
+   <path d="m11.5 195.36 2-10"/>
+   <path d="m10.5 191.86h6.5"/>
+   <path d="m11 188.86h6.5"/>
+  </g>
+ </g>
+</svg>

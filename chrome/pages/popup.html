@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!--
+  Chrome Popup – replacement for the Firefox sidebar_action.
+  Provides quick access to the Clippings Manager and other actions.
+-->
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <style>
+      body {
+        width: 280px;
+        padding: 12px;
+        font-family: system-ui, sans-serif;
+        font-size: 13px;
+      }
+      h1 {
+        font-size: 14px;
+        margin: 0 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      h1 img { width: 16px; height: 16px; }
+      button {
+        display: block;
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 7px 10px;
+        text-align: left;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #f5f5f5;
+        font-size: 13px;
+      }
+      button:hover { background: #e8e8e8; }
+      button:last-child { margin-bottom: 0; }
+    </style>
+  </head>
+  <body>
+    <h1>
+      <img src="../img/clippings16.svg" alt=""/>
+      <span data-i18n="extName">Clippings</span>
+    </h1>
+
+    <button id="open-clippings-mgr" data-i18n="cxtMenuOpenClippingsMgr">Open Clippings Manager</button>
+    <button id="new-clipping" data-i18n="cxtMenuNew">New Clipping</button>
+    <button id="open-prefs" data-i18n="mnuPrefs">Preferences</button>
+
+    <script src="../scripts/aeConst.js"></script>
+    <script src="../scripts/aeI18n.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Apply i18n strings
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          let msg = chrome.i18n.getMessage(el.dataset.i18n);
+          if (msg) { el.textContent = msg; }
+        });
+
+        document.getElementById("open-clippings-mgr").addEventListener("click", () => {
+          chrome.runtime.sendMessage({msgID: "open-clippings-mgr"});
+          window.close();
+        });
+
+        document.getElementById("new-clipping").addEventListener("click", async () => {
+          let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+          if (tab) {
+            chrome.runtime.sendMessage({msgID: "new-clipping-from-popup", tabID: tab.id});
+          }
+          window.close();
+        });
+
+        document.getElementById("open-prefs").addEventListener("click", () => {
+          chrome.runtime.openOptionsPage();
+          window.close();
+        });
+      });
+    </script>
+  </body>
+</html>
