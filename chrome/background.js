@@ -514,9 +514,12 @@ async function init(aPrefs)
   }
 
   // Handle changes to Dark Mode system setting.
-  gPrefersColorSchemeMedQry = window.matchMedia("(prefers-color-scheme: dark)");
-  await handlePrefersColorSchemeChange(gPrefersColorSchemeMedQry);
-  gPrefersColorSchemeMedQry.addEventListener("change", handlePrefersColorSchemeChange);
+  // window.matchMedia() is not available in Chrome MV3 service workers.
+  if (typeof window !== 'undefined') {
+    gPrefersColorSchemeMedQry = window.matchMedia("(prefers-color-scheme: dark)");
+    await handlePrefersColorSchemeChange(gPrefersColorSchemeMedQry);
+    gPrefersColorSchemeMedQry.addEventListener("change", handlePrefersColorSchemeChange);
+  }
 
   let isInitialized = Boolean(gLocalState.getItem("isInitialized"));
 
@@ -1802,8 +1805,10 @@ async function openClippingsManager(aBackupMode)
         }
       }
       else {
-        left = Math.ceil((window.screen.availWidth - width) / 2);
-        top = Math.ceil((window.screen.availHeight - height) / 2);
+        // window.screen is not available in Chrome MV3 service workers; fall
+        // back to null so Chrome picks a default window position.
+        left = (typeof screen !== 'undefined') ? Math.ceil((screen.availWidth - width) / 2) : null;
+        top  = (typeof screen !== 'undefined') ? Math.ceil((screen.availHeight - height) / 2) : null;
       }
     }
     
@@ -2087,11 +2092,13 @@ async function openDlgWnd(aURL, aWndKey, aWndPpty, aTabID=null, aAlwaysCalcWndPo
       }
     }
     else {
-      left = Math.ceil((window.screen.availWidth - width) / 2);
-      top = Math.ceil((window.screen.availHeight - height) / 2);
+      // window.screen is not available in Chrome MV3 service workers; fall
+      // back to null so Chrome picks a default window position.
+      left = (typeof screen !== 'undefined') ? Math.ceil((screen.availWidth - width) / 2) : null;
+      top  = (typeof screen !== 'undefined') ? Math.ceil((screen.availHeight - height) / 2) : null;
     }
 
-    log(`Opening popup window at coordinates (${left}, ${top}); screen size: width ${window.screen.availWidth}; height ${window.screen.availHeight}`);
+    log(`Opening popup window at coordinates (${left}, ${top}); screen size: width ${typeof screen !== 'undefined' ? screen.availWidth : 'N/A'}; height ${typeof screen !== 'undefined' ? screen.availHeight : 'N/A'}`);
 
     let wnd = await chrome.windows.create({
       url: aURL,
@@ -2923,8 +2930,9 @@ chrome.runtime.onMessage.addListener(aRequest => {
 });
 
 
-// Catch any unhandled promise rejections from 3rd-party libs
-window.addEventListener("unhandledrejection", aEvent => {
+// Catch any unhandled promise rejections from 3rd-party libs.
+// Use `self` instead of `window` for compatibility with Chrome MV3 service workers.
+self.addEventListener("unhandledrejection", aEvent => {
   aEvent.preventDefault();
 });
 
