@@ -10,7 +10,6 @@ importScripts(
   "lib/dexie/dexie.min.js",
   "lib/moment/moment.min.js",
   "lib/moment/locales.min.js",
-  "lib/jquery.js",
   "scripts/aeConst.js",
   "scripts/aeClippingSubst.js",
   "scripts/aeImportExport.js",
