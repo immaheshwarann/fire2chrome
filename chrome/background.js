@@ -1807,8 +1807,9 @@ async function openClippingsManager(aBackupMode)
       else {
         // window.screen is not available in Chrome MV3 service workers; fall
         // back to null so Chrome picks a default window position.
-        left = (typeof screen !== 'undefined') ? Math.ceil((screen.availWidth - width) / 2) : null;
-        top  = (typeof screen !== 'undefined') ? Math.ceil((screen.availHeight - height) / 2) : null;
+        let hasScreen = (typeof screen !== 'undefined');
+        left = hasScreen ? Math.ceil((screen.availWidth - width) / 2) : null;
+        top  = hasScreen ? Math.ceil((screen.availHeight - height) / 2) : null;
       }
     }
     
@@ -2094,11 +2095,14 @@ async function openDlgWnd(aURL, aWndKey, aWndPpty, aTabID=null, aAlwaysCalcWndPo
     else {
       // window.screen is not available in Chrome MV3 service workers; fall
       // back to null so Chrome picks a default window position.
-      left = (typeof screen !== 'undefined') ? Math.ceil((screen.availWidth - width) / 2) : null;
-      top  = (typeof screen !== 'undefined') ? Math.ceil((screen.availHeight - height) / 2) : null;
+      let hasScreen = (typeof screen !== 'undefined');
+      left = hasScreen ? Math.ceil((screen.availWidth - width) / 2) : null;
+      top  = hasScreen ? Math.ceil((screen.availHeight - height) / 2) : null;
     }
 
-    log(`Opening popup window at coordinates (${left}, ${top}); screen size: width ${typeof screen !== 'undefined' ? screen.availWidth : 'N/A'}; height ${typeof screen !== 'undefined' ? screen.availHeight : 'N/A'}`);
+    let screenAvailWidth  = (typeof screen !== 'undefined') ? screen.availWidth  : 'N/A';
+    let screenAvailHeight = (typeof screen !== 'undefined') ? screen.availHeight : 'N/A';
+    log(`Opening popup window at coordinates (${left}, ${top}); screen size: width ${screenAvailWidth}; height ${screenAvailHeight}`);
 
     let wnd = await chrome.windows.create({
       url: aURL,
