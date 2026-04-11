@@ -1105,31 +1105,6 @@ function getContextMenuData(aFolderID, aPrefs)
           title: sanitizeMenuTitle(aItem.name),
         };
 
-        // Submenu icon
-        let iconPath = "img/folder.svg";
-        if (aItem.id == aPrefs.syncFolderID) {
-          // Firefox bug on macOS:
-          // Dark Mode setting isn't applied to the browser context menu when
-          // a Firefox dark color theme is used.
-          if (getContextMenuData.isDarkMode) {
-            if (aPrefs.isSyncReadOnly) {
-              iconPath = "img/synced-clippings-readonly-dk.svg";
-            }
-            else {
-              iconPath = "img/synced-clippings-dk.svg";
-            }
-          }
-          else {
-            if (aPrefs.isSyncReadOnly) {
-              iconPath = "img/synced-clippings-readonly.svg";
-            }
-            else {
-              iconPath = "img/synced-clippings.svg";
-            }
-          }
-        }
-        submenuItemData.icons = {16: iconPath};
-
         if (! ("displayOrder" in aItem)) {
           submenuItemData.displayOrder = 0;
         }
@@ -1167,9 +1142,6 @@ function getContextMenuData(aFolderID, aPrefs)
             menuItemData = {
               id: menuItemID,
               title: sanitizeMenuTitle(aItem.name),
-              icons: {
-                16: "img/" + (aItem.label ? `clipping-${aItem.label}.svg` : "clipping.svg")
-              },
             };
 
             if (aItem.label) {
@@ -1304,7 +1276,6 @@ function buildContextMenuHelper(aMenuData)
       menuItem = {
         id: menuData.id,
         title: menuData.title,
-        icons: menuData.icons,
         contexts: ["editable"],
         documentUrlPatterns: ["<all_urls>"]
       };
