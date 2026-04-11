@@ -498,6 +498,7 @@ async function init(aPrefs)
   log("Clippings/wx: Initializing integration with host app...");
   
   aeClippings.init();
+  gClippingsDB = aeClippings.getDB();
 
   // chrome.runtime.getBrowserInfo() is Firefox-only; use a stub for Chrome.
   let brws = {name: "Chrome", version: ""};
