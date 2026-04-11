@@ -19,7 +19,10 @@ async function init()
   let msgBodyHeight = parseInt(compStyles.getPropertyValue("height"));
   if (msgBodyHeight > MSG_BODY_DEFAULT_HEIGHT) {
     let height = DEFAULT_WND_HEIGHT + (msgBodyHeight - MSG_BODY_DEFAULT_HEIGHT);
-    await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {height});
+    let wnd = await chrome.windows.getCurrent();
+    if (wnd && wnd.id > 0) {
+      await chrome.windows.update(wnd.id, {height});
+    }
   }
 
   let platform = await chrome.runtime.getPlatformInfo();
@@ -43,7 +46,7 @@ async function init()
   });
   
   let btnAccept = document.querySelector("#btn-accept");
-  btnAccept.addEventListener("click", aEvent => { dismiss(aEvent) });
+  btnAccept.addEventListener("click", async (aEvent) => { await dismiss(aEvent) });
   btnAccept.focus();
 
   // Fix for Fx57 bug where bundled page loaded using
@@ -57,9 +60,12 @@ async function init()
 }
 
 
-function dismiss()
+async function dismiss()
 {
-  chrome.windows.remove(chrome.windows.WINDOW_ID_CURRENT);
+  let wnd = await chrome.windows.getCurrent();
+  if (wnd && wnd.id > 0) {
+    chrome.windows.remove(wnd.id);
+  }
 }
 
 

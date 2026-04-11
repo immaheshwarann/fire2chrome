@@ -136,7 +136,10 @@ async function expandOptions(aIsOptionsExpanded)
     }
 
     if (!gIsVertExpanded) {
-      await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {height});
+      let wnd = await chrome.windows.getCurrent();
+      if (wnd && wnd.id > 0) {
+        await chrome.windows.update(wnd.id, {height});
+      }
     }
     
     $("#clipping-options").show();
@@ -155,7 +158,10 @@ async function expandOptions(aIsOptionsExpanded)
     $("#clipping-options").hide();
     $("#new-clipping-fldr-tree-popup").removeClass("new-clipping-fldr-tree-popup-fixpos");
     $("#btn-expand-options").removeClass("expanded");
-    await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {height});
+    let wnd = await chrome.windows.getCurrent();
+    if (wnd && wnd.id > 0) {
+      await chrome.windows.update(wnd.id, {height});
+    }
   }
 
   $("#btn-expand-options").data("isExpanded", aIsOptionsExpanded);
@@ -923,7 +929,10 @@ function cancel(aEvent)
 async function closeDlg()
 {
   await chrome.runtime.sendMessage({ msgID: "close-new-clipping-dlg" });
-  chrome.windows.remove(chrome.windows.WINDOW_ID_CURRENT);
+  let wnd = await chrome.windows.getCurrent();
+  if (wnd && wnd.id > 0) {
+    chrome.windows.remove(wnd.id);
+  }
 }
 
 

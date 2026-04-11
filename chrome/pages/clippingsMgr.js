@@ -2963,8 +2963,10 @@ let gCmd = {
       state: (wnd.state == "maximized" ? "normal" : "maximized")
     };
     
-    let updWnd = chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, updWndInfo);
-    gIsMaximized = updWnd.state == "maximized";
+    if (wnd && wnd.id > 0) {
+      let updWnd = await chrome.windows.update(wnd.id, updWndInfo);
+      gIsMaximized = updWnd.state == "maximized";
+    }
   },
 
   toggleMinimizeWhenInactive()
@@ -3763,7 +3765,11 @@ $(window).on("blur", aEvent => {
   if (gEnvInfo.os == "linux" || DEBUG_WND_ACTIONS) {
     if (gPrefs.clippingsMgrMinzWhenInactv && !gSuppressAutoMinzWnd) {
       let updWndInfo = { state: "minimized" };
-      chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, updWndInfo);
+      chrome.windows.getCurrent().then(wnd => {
+        if (wnd && wnd.id > 0) {
+          chrome.windows.update(wnd.id, updWndInfo);
+        }
+      });
     }
   }
 });
@@ -6389,9 +6395,12 @@ function setSaveWndGeometryInterval(aSaveWndGeom)
 setSaveWndGeometryInterval.intvID = null;
 
 
-function closeWnd()
+async function closeWnd()
 {
-  chrome.windows.remove(chrome.windows.WINDOW_ID_CURRENT);
+  let wnd = await chrome.windows.getCurrent();
+  if (wnd && wnd.id > 0) {
+    chrome.windows.remove(wnd.id);
+  }
 }
 
 
