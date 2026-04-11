@@ -484,7 +484,12 @@ void async function ()
     aePrefs.setPrefs({clippingsMgrAutoShowDetailsPane: false});
   }
 
-  init(prefs);
+  try {
+    await init(prefs);
+  }
+  catch (e) {
+    console.error("Clippings/wx: Extension initialization failed:", e);
+  }
 }();
 
 
