@@ -1102,7 +1102,7 @@ function getContextMenuData(aFolderID, aPrefs)
 
         let submenuItemData = {
           id: fldrMenuItemID,
-          title: "📁 " + sanitizeMenuTitle(aItem.name),
+          title: "🗂️ " + sanitizeMenuTitle(aItem.name),
         };
 
         if (aItem.id == aPrefs.syncFolderID) {
@@ -1145,7 +1145,7 @@ function getContextMenuData(aFolderID, aPrefs)
 
             menuItemData = {
               id: menuItemID,
-              title: "📄 " + sanitizeMenuTitle(aItem.name),
+              title: "📋 " + sanitizeMenuTitle(aItem.name),
             };
 
             if (aItem.label) {
