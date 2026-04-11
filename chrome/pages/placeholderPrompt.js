@@ -124,7 +124,10 @@ $(async () => {
     }
 
     if (!isVertExpanded) {
-      await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, {height});
+      let wnd = await chrome.windows.getCurrent();
+      if (wnd && wnd.id > 0) {
+        await chrome.windows.update(wnd.id, {height});
+      }
     }
 
     for (let i = 0; i < gPlaceholders.length; i++) {
@@ -310,5 +313,8 @@ function cancel(aEvent)
 async function closeDlg()
 {
   await chrome.runtime.sendMessage({msgID: "close-placeholder-prmt-dlg"});
-  chrome.windows.remove(chrome.windows.WINDOW_ID_CURRENT);
+  let wnd = await chrome.windows.getCurrent();
+  if (wnd && wnd.id > 0) {
+    chrome.windows.remove(wnd.id);
+  }
 }

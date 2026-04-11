@@ -74,9 +74,12 @@ function initKeyboardShortcutTable(aOSName)
 }
 
 
-function closeDlg()
+async function closeDlg()
 {
-  chrome.windows.remove(chrome.windows.WINDOW_ID_CURRENT);
+  let wnd = await chrome.windows.getCurrent();
+  if (wnd && wnd.id > 0) {
+    chrome.windows.remove(wnd.id);
+  }
 }
 
 

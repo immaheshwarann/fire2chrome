@@ -312,7 +312,10 @@ $(async () => {
         updWndInfo.height += DLG_HEIGHT_ADJ_LINUX;
       }
 
-      await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, updWndInfo);
+      let wnd = await chrome.windows.getCurrent();
+      if (wnd && wnd.id > 0) {
+        await chrome.windows.update(wnd.id, updWndInfo);
+      }
     }
     
     $(".deck > #search-by-name").show();
@@ -395,7 +398,10 @@ $(window).on("keydown", async (aEvent) => {
           updWndInfo.height += DLG_HEIGHT_ADJ_LINUX;
         }
 
-        await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, updWndInfo);
+        let wnd = await chrome.windows.getCurrent();
+        if (wnd && wnd.id > 0) {
+          await chrome.windows.update(wnd.id, updWndInfo);
+        }
       }
       
       $(".deck > #search-by-name").fadeIn("fast");
@@ -414,7 +420,10 @@ $(window).on("keydown", async (aEvent) => {
           updWndInfo.height += DLG_HEIGHT_ADJ_LINUX;
         }
 
-        await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, updWndInfo);
+        let wnd = await chrome.windows.getCurrent();
+        if (wnd && wnd.id > 0) {
+          await chrome.windows.update(wnd.id, updWndInfo);
+        }
       }
       
       $(".deck > #paste-by-shortcut-key").fadeIn("fast");
@@ -525,7 +534,10 @@ async function initShortcutList()
     updWndInfo.height += DLG_HEIGHT_ADJ_LINUX;
   }
 
-  await chrome.windows.update(chrome.windows.WINDOW_ID_CURRENT, updWndInfo);
+  let wnd = await chrome.windows.getCurrent();
+  if (wnd && wnd.id > 0) {
+    await chrome.windows.update(wnd.id, updWndInfo);
+  }
   aeImportExport.getShortcutKeyListHTML(false).then(aShctListHTML => {
     $("#shortcut-list-content").append(sanitizeHTML(aShctListHTML));
 
@@ -606,7 +618,10 @@ async function closeDlg()
   await aePrefs.setPrefs({pastePromptAction: gPasteMode});
   
   await chrome.runtime.sendMessage({msgID: "close-keybd-paste-dlg"});
-  chrome.windows.remove(chrome.windows.WINDOW_ID_CURRENT);
+  let wnd = await chrome.windows.getCurrent();
+  if (wnd && wnd.id > 0) {
+    chrome.windows.remove(wnd.id);
+  }
 }
 
 
