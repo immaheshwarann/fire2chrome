@@ -1277,6 +1277,10 @@ function buildContextMenuHelper(aMenuData)
       };
     }
     else {
+      if (! menuData.title) {
+        warn(`buildContextMenuHelper(): Skipping menu item with missing or empty title (id: ${menuData.id})`);
+        continue;
+      }
       menuItem = {
         id: menuData.id,
         title: menuData.title,
